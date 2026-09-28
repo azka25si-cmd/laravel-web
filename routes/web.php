@@ -14,7 +14,7 @@ Route::get('/pcr', function () {
     return 'Selamat Datang di Website Kampus PCR!';
 });
 
-
+Route::get('/home',[HomeController::class,'index']);
 
 Route::get('/nama/{param1}', function ($param1) {
     return 'Nama saya: '.$param1;
