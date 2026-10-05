@@ -44,5 +44,8 @@ Route::put('/matakuliah/{id}', [MatakuliahController::class, 'update']);
 Route::delete('/matakuliah/{id}', [MatakuliahController::class, 'destroy']);
 
 
+Route::get('/question', function () {
+    return view('home');
+});
 Route::post('question/store', [QuestionController::class, 'store'])
 		->name('question.store');

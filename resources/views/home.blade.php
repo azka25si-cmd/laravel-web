@@ -79,15 +79,16 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section (Diberi nilai default '??' agar tidak error) -->
     <section class="hero-section">
         <div class="container">
-           <h1> {{ $username }} </h1>
-            <p> {{ $last_login }} </p>
+           <h1> {{ $username ?? 'Selamat Datang' }} </h1>
+            <p> {{ $last_login ?? 'Silahkan isi form di bawah' }} </p>
+        </div>
     </section>
 
     <!-- Content Section -->
-    <section id="content" class="container ">
+    <section id="content" class="container">
         <div class="row">
             <div class="col-md-6">
                 {{-- About --}}
@@ -127,74 +128,39 @@
                     </div>
                 </div>
 
-                {{-- Badge, List & Card --}}
+                {{-- Form Pertanyaan (Sudah Diperbaiki) --}}
                 <div class="card">
                     <div class="card-body">
-                        <h3 class="h5 mb-3">Badges, List, &amp; Card</h3>
-                        <div class="mb-3">
-                            <span class="badge text-bg-primary">Web Dev</span>
-                            <span class="badge text-bg-success">Laravel</span>
-                            <span class="badge text-bg-danger">Bootstrap</span>
-                        </div>
-                        <ul class="list-group mb-3">
-                            <li class="list-group-item">Item Satu</li>
-                            <li class="list-group-item">Item Dua</li>
-                            <li class="list-group-item">Item Tiga</li>
-                        </ul>
-                        <div class="p-3 border rounded">
-                            <strong>Div umum</strong> — ini hanya <em>container</em> untuk konten bebas.
-                        </div>
-                        <p class="text-muted small mt-3 mb-0">
-                            Gunakan <code>.card</code> untuk konten yang butuh border & sedikit efek shadow.
-                        </p>
+                        <h5 class="card-title">Form Pertanyaan</h5>
+                        <form action="{{ route('question.store') }}" method="POST">
+                            @csrf
+                            <div class="mb-3">
+                                <label for="nama" class="form-label">Nama</label>
+                                <input type="text" name="nama" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="pertanyaan" class="form-label">Pertanyaan</label>
+                                <textarea name="pertanyaan" class="form-control" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button>
+                        </form>
                     </div>
                 </div>
             </div>
 
             <div class="col-md-6">
-                <div class="card">
-    <div class="card-body">
-        <h5 class="card-title">Form Pertanyaan</h5>
-<form action="{{ route('question.store') }}" method="POST">
-	@csrf
-            <div class="mb-3">
-                <label for="nama" class="form-label">Nama</label>
-                <input type="text" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email</label>
-                <input type="text" class="form-control">
-            </div>
-            <div class="mb-3">
-                <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                <textarea class="form-control" rows="4"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button>
-        </form>
-    </div>
-</div>
                 {{-- Alerts --}}
-                <div class="card ">
+                <div class="card">
                     <div class="card-body">
                         <h3 class="h5 mb-3">Alerts</h3>
                         <div class="alert alert-primary mb-2">Informational alert</div>
                         <div class="alert alert-success mb-2">Success alert</div>
                         <div class="alert alert-warning mb-2">Warning alert</div>
                         <div class="alert alert-danger mb-0">Danger alert</div>
-                    </div>
-                </div>
-
-                {{-- Buttons --}}
-                <div class="card">
-                    <div class="card-body">
-                        <h3 class="h5 mb-3">Buttons</h3>
-                        <div class="d-flex flex-wrap gap-2">
-                            <button class="btn btn-primary">Primary</button>
-                            <button class="btn btn-secondary">Secondary</button>
-                            <button class="btn btn-outline-primary">Outline</button>
-                            <button class="btn btn-success">Success</button>
-                            <button class="btn btn-danger">Danger</button>
-                        </div>
                     </div>
                 </div>
 
@@ -225,16 +191,9 @@
                                         <td>User</td>
                                         <td><span class="badge text-bg-secondary">Inactive</span></td>
                                     </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Cici</td>
-                                        <td>Editor</td>
-                                        <td><span class="badge text-bg-warning">Pending</span></td>
-                                    </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <p class="text-muted small mb-0">Tambahkan <code>.table-striped</code> atau <code>.table-bordered</code> sesuai kebutuhan.</p>
                     </div>
                 </div>
             </div>
@@ -244,9 +203,10 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; {{date('Y')}} My Laravel App. All Rights Reserved.</p>
+            <p>&copy; {{ date('Y') }} My Laravel App. All Rights Reserved.</p>
         </div>
     </footer>
+
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 </body>
