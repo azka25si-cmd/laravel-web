@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\HomeController;
-
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\MatakuliahController;
 
 Route::get('/', function () {
@@ -42,3 +42,7 @@ Route::post('/matakuliah', [MatakuliahController::class, 'store']);
 Route::get('/matakuliah/{id}/edit', [MatakuliahController::class, 'edit']);
 Route::put('/matakuliah/{id}', [MatakuliahController::class, 'update']);
 Route::delete('/matakuliah/{id}', [MatakuliahController::class, 'destroy']);
+
+
+Route::post('question/store', [QuestionController::class, 'store'])
+		->name('question.store');
