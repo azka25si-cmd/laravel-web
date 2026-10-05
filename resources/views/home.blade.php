@@ -82,7 +82,7 @@
     <!-- Hero Section (Diberi nilai default '??' agar tidak error) -->
     <section class="hero-section">
         <div class="container">
-           <h1> {{ $username ?? 'Selamat Datang' }} </h1>
+           <h1> {{ $username ?? 'azka' }} </h1>
             <p> {{ $last_login ?? 'Silahkan isi form di bawah' }} </p>
         </div>
     </section>
@@ -130,21 +130,32 @@
 
                 {{-- Form Pertanyaan (Sudah Diperbaiki) --}}
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Form Pertanyaan</h5>
+              <div class="card-body">
+             <h5 class="card-title">Form Pertanyaan</h5>
+
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                        
                         <form action="{{ route('question.store') }}" method="POST">
                             @csrf
                             <div class="mb-3">
                                 <label for="nama" class="form-label">Nama</label>
-                                <input type="text" name="nama" class="form-control" required>
+                                <input type="text" class="form-control" id="nama" name="nama" value="{{old('nama')}}">
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" name="email" class="form-control" required>
+                               <input type="text" class="form-control" id="email" name="email" value="{{old('email')}}">
                             </div>
                             <div class="mb-3">
                                 <label for="pertanyaan" class="form-label">Pertanyaan</label>
-                                <textarea name="pertanyaan" class="form-control" rows="4" required></textarea>
+                               <textarea type="text" class="form-control" id="pertanyaan" name="pertanyaan" rows="4">{{old('pertanyaan')}}</textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Kirim Pertanyaan</button>
                         </form>
