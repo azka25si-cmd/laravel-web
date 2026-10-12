@@ -40,7 +40,9 @@ class QuestionController extends Controller
                 'nama.required'=>'Nama tidak boleh kosong',
                 'email.email'=> 'Email Tidak valid'
             ]);
-        return view('home-question-respon', $data);
+        //return view('home-question-respon', $data);
+        return redirect('home-question-respon')->with($data);
+        //return redirect()->route('home');
     }
 
     /**

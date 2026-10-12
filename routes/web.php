@@ -49,3 +49,7 @@ Route::get('/question', function () {
 });
 Route::post('question/store', [QuestionController::class, 'store'])
 		->name('question.store');
+
+Route::get('/home-question-respon', function () {
+    return view('home-question-respon');
+})->name('home-question-respon');
