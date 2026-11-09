@@ -1,19 +1,25 @@
 <?php
-
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Pelanggan;
+use Illuminate\Http\Request;
+
+
 
 class PelangganController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data['dataPelanggan'] = Pelanggan::all();
-		return view('admin.pelanggan.index',$data);
+        $filterableColumns = ['gender'];
+        $searchableColumns = ['first_name', 'last_name', 'email'];
+//Tambahkan ini
+        $data['dataPelanggan'] = Pelanggan::filter($request, $filterableColumns)
+            ->search($request, $searchableColumns) // dan ini
+            ->paginate(10)->withQueryString();
+        return view('admin.pelanggan.index', $data);
     }
 
     /**
@@ -29,16 +35,16 @@ class PelangganController extends Controller
      */
     public function store(Request $request)
     {
-       $data['first_name'] = $request->first_name;
-		$data['last_name'] = $request->last_name;
-		$data['birthday'] = $request->birthday;
-		$data['gender'] = $request->gender;
-		$data['email'] = $request->email;
-		$data['phone'] = $request->phone;
-		
-		Pelanggan::create($data);
-		
-		return redirect()->route('pelanggan.index')->with('success','Penambahan Data Berhasil!');
+        $data['first_name'] = $request->first_name;
+        $data['last_name']  = $request->last_name;
+        $data['birthday']   = $request->birthday;
+        $data['gender']     = $request->gender;
+        $data['email']      = $request->email;
+        $data['phone']      = $request->phone;
+
+        Pelanggan::create($data);
+
+        return redirect()->route('pelanggan.index')->with('success', 'Penambahan Data Berhasil!');
     }
 
     /**
@@ -63,13 +69,13 @@ class PelangganController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $dataPelanggan = Pelanggan::findOrFail($id);
+        $dataPelanggan             = Pelanggan::findOrFail($id);
         $dataPelanggan->first_name = $request->first_name;
-        $dataPelanggan->last_name = $request->last_name;
-        $dataPelanggan->birthday = $request->birthday;
-        $dataPelanggan->gender = $request->gender;
-        $dataPelanggan->email = $request->email;
-        $dataPelanggan->phone = $request->phone;
+        $dataPelanggan->last_name  = $request->last_name;
+        $dataPelanggan->birthday   = $request->birthday;
+        $dataPelanggan->gender     = $request->gender;
+        $dataPelanggan->email      = $request->email;
+        $dataPelanggan->phone      = $request->phone;
         $dataPelanggan->save();
 
         return redirect()->route('pelanggan.index')->with('success', 'Data pelanggan berhasil diperbarui.');
